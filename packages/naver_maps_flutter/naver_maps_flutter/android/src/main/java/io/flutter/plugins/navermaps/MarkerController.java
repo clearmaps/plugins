@@ -19,6 +19,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
+import com.naver.maps.map.util.MarkerIcons;
 import com.naver.maps.model.BitmapDescriptor;
 
 /** Controller of a single Marker on the map. */
@@ -27,7 +28,7 @@ class MarkerController implements MarkerOptionsSink {
   public final Marker marker;
   private final String naverMapsMarkerId;
   private boolean consumeTapEvents;
-  private final InfoWindow infoWindow;
+//  private final InfoWindow infoWindow;
 
   private String infoWindowTitle;
   private String infoWindowSnippet;
@@ -42,26 +43,27 @@ class MarkerController implements MarkerOptionsSink {
     this.consumeTapEvents = consumeTapEvents;
     this.naverMapsMarkerId = Integer.toString(marker.hashCode());
 
-    this.infoWindow = new InfoWindow();
-    this.infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
-        @NonNull
-        @Override
-        public CharSequence getText(@NonNull InfoWindow infoWindow) {
-            StringBuilder stringBuilder = new StringBuilder();
-            if (infoWindowTitle != null) {
-              stringBuilder.append(infoWindowTitle);
-            }
-
-            if (infoWindowSnippet != null) {
-              stringBuilder.append("\n");
-              stringBuilder.append(infoWindowSnippet);
-            }
-            return stringBuilder.toString();
-        }
-    });
+//    this.infoWindow = new InfoWindow();
+//    this.infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
+//        @NonNull
+//        @Override
+//        public CharSequence getText(@NonNull InfoWindow infoWindow) {
+//            StringBuilder stringBuilder = new StringBuilder();
+//            if (infoWindowTitle != null) {
+//              stringBuilder.append(infoWindowTitle);
+//            }
+//
+//            if (infoWindowSnippet != null) {
+//              stringBuilder.append("\n");
+//              stringBuilder.append(infoWindowSnippet);
+//            }
+//            return stringBuilder.toString();
+//        }
+//    });
   }
 
   void remove() {
+    marker.setIcon(MarkerIcons.BLACK);
     marker.setMap(null);
   }
 
@@ -93,7 +95,6 @@ class MarkerController implements MarkerOptionsSink {
   @RequiresApi(api = Build.VERSION_CODES.O)
   @Override
   public void setIcon(BitmapDescriptor bitmapDescriptor) {
-    Log.d("MarkerController", "<setIcon>-------");
     if (bitmapDescriptor == null) {
       return;
     }
@@ -111,7 +112,7 @@ class MarkerController implements MarkerOptionsSink {
 
   @Override
   public void setInfoWindowAnchor(float u, float v) {
-    infoWindow.setAnchor(new PointF(u, v));
+//    infoWindow.setAnchor(new PointF(u, v));
   }
 
   @Override
@@ -123,7 +124,7 @@ class MarkerController implements MarkerOptionsSink {
   @Override
   public void setPosition(LatLng position) {
     marker.setPosition(position);
-    infoWindow.setPosition(position);
+//    infoWindow.setPosition(position);
   }
 
   @Override
@@ -150,14 +151,15 @@ class MarkerController implements MarkerOptionsSink {
   }
 
   public void showInfoWindow(NaverMap naverMap) {
-    infoWindow.open(naverMap);
+//    infoWindow.open(naverMap);
   }
 
   public void hideInfoWindow() {
-    infoWindow.close();
+//    infoWindow.close();
   }
 
   public boolean isInfoWindowShown() {
-    return infoWindow.isVisible();
+//    return infoWindow.isVisible();
+      return false;
   }
 }
